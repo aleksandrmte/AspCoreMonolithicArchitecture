@@ -15,8 +15,8 @@ namespace ApplicationCore.TodoLists.Dto
         }
 
         public int Id { get; set; }
-
         public string Title { get; set; }
+        public ProjectDto Project { get; set; }
 
         public IList<TodoItemDto> TodoItems { get; set; }
 
