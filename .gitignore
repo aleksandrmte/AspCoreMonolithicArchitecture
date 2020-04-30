@@ -1,0 +1,9 @@
+/.vs
+/ApplicationCore/obj
+/ApplicationCore/bin
+/Domain/obj
+/Domain/bin
+/Infrastructure/obj
+/Infrastructure/bin
+/Web/obj
+/Web/bin
