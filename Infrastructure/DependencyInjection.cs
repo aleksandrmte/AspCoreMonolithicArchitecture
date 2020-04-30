@@ -1,4 +1,7 @@
-﻿using Infrastructure.Data;
+﻿using ApplicationCore.Common.Interfaces;
+using ApplicationCore.TodoLists.Interfaces;
+using Infrastructure.Data;
+using Infrastructure.Data.Repositories;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +24,11 @@ namespace Infrastructure
                     options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultUI();
-            
+
+            services.AddTransient<IIdentityService, IdentityService>();
+
+            services.AddScoped<ITodoListRepository, TodoListRepository>();
+
             return services;
         }
     }

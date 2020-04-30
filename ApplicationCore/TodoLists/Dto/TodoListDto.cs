@@ -11,14 +11,14 @@ namespace ApplicationCore.TodoLists.Dto
     {
         public TodoListDto()
         {
-            Items = new List<TodoItemDto>();
+            TodoItems = new List<TodoItemDto>();
         }
 
         public int Id { get; set; }
 
         public string Title { get; set; }
 
-        public IList<TodoItemDto> Items { get; set; }
+        public IList<TodoItemDto> TodoItems { get; set; }
 
         public void Mapping(Profile profile)
         {
