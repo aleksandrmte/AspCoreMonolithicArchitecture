@@ -19,9 +19,9 @@ namespace Infrastructure.Identity
             _userManager = userManager;
         }
 
-        public async Task<string> GetUserNameAsync(int userId)
+        public async Task<string> GetUserNameAsync(string userName)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+            var user = await _userManager.Users.FirstAsync(u => u.UserName == userName);
 
             return user.UserName;
         }

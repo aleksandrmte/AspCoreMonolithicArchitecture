@@ -8,7 +8,7 @@ namespace ApplicationCore.Common.Interfaces
 {
     public interface IIdentityService
     {
-        Task<string> GetUserNameAsync(int userId);
+        Task<string> GetUserNameAsync(string userName);
         Task<(Result Result, int UserId)> CreateUserAsync(string userName, string password);
         Task<Result> DeleteUserAsync(int userId);
     }

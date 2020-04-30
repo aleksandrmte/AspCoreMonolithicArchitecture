@@ -6,13 +6,13 @@ using ApplicationCore.TodoLists.Commands.CreateTodoList;
 using ApplicationCore.TodoLists.Dto;
 using ApplicationCore.TodoLists.Queries.GetTodoList;
 using ApplicationCore.TodoLists.Queries.GetTodoLists;
-using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers.Api
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TodoListController : ApiController
     {
         [HttpGet]

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ApplicationCore;
 using ApplicationCore.Common.Interfaces;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using Web.Filters;
@@ -41,6 +43,24 @@ namespace Web
 
             services.AddControllersWithViews(options =>
                 options.Filters.Add(new ApiExceptionFilter()));
+
+            // configure jwt authentication for api and identity auth for website
+            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("Secret"));
+            services.AddAuthentication()
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
 
             services.AddOpenApiDocument(configure =>
             {

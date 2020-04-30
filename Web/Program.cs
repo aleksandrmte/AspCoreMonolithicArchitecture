@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 
 namespace Web
 {
@@ -55,13 +56,13 @@ namespace Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureLogging(logBuilder =>
-                    {
-                        logBuilder.ClearProviders(); // removes all providers from LoggerFactory
-                        logBuilder.AddConsole();
-                        logBuilder.AddTraceSource("Information, ActivityTracing"); // Add Trace listener provider
-                    });
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                })
+                .UseNLog();
     }
 }

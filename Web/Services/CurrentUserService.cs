@@ -12,9 +12,9 @@ namespace Web.Services
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            UserId = Convert.ToInt32(httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier));
+            UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
         }
 
-        public int? UserId { get; }
+        public string UserName { get; }
     }
 }
