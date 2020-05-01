@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ApplicationCore;
 using ApplicationCore.Common.Interfaces;
 using Infrastructure;
 using Infrastructure.Data;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,9 +34,13 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //application.core
             services.AddApplication();
+            //infrastructure
             services.AddInfrastructure(Configuration);
+            //web
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddHttpContextAccessor();
 

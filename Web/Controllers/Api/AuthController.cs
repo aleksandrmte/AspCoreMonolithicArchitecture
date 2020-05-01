@@ -1,37 +1,16 @@
-﻿using Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Web.Framework.Helpers;
-using Web.Models;
+using Web.Feature.Auth.Commands.Login;
+using Web.Feature.Auth.Dto;
 
 namespace Web.Controllers.Api
 {
     public class AuthController : ApiController
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IConfiguration _config;
-
-        public AuthController(UserManager<ApplicationUser> userManager, IConfiguration config)
-        {
-            _userManager = userManager;
-            _config = config;
-        }
-
         [HttpPost("auth")]
-        public async Task<IActionResult> Authenticate([FromBody] UserLoginVm model)
+        public async Task<ActionResult<JwtTokenVm>> Authenticate([FromBody] LoginCommand command)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-                return NotFound();
-            var secretKey = _config.GetValue<string>("Secret");
-            var tokenString = IdentityHelper.CreateClaimsWithToken(user.Email, secretKey);
-            return Ok(new JwtTokenVm
-            {
-                Email = user.Email,
-                Token = tokenString
-            });
+            return await Mediator.Send(command);
         }
 
     }

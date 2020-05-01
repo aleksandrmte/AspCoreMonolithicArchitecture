@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApplicationCore.TodoLists.Commands.CreateTodoList;
+﻿using ApplicationCore.TodoLists.Commands.CreateTodoList;
 using ApplicationCore.TodoLists.Dto;
 using ApplicationCore.TodoLists.Queries.GetTodoList;
 using ApplicationCore.TodoLists.Queries.GetTodoLists;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Web.Controllers.Api
 {
